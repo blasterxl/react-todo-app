@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     'script!jquery/dist/jquery.min.js',
     'script!foundation-sites/dist/foundation.min.js',
     './app/app.jsx'
@@ -28,7 +29,8 @@ module.exports = {
       './app/api'
     ],
     alias: {
-      applicationStyles: 'app/styles/app.scss'
+      applicationStyles: 'app/styles/app.scss',
+      actions: 'app/actions/index.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

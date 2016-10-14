@@ -1,16 +1,23 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+import 'babel-polyfill';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 
-var TodoApp = require('TodoApp');
+import TodoApp from './components/TodoApp';
+import configureStore from './store/configureStore';
 
 // Load foundation
 $(document).foundation();
 
 // App css
-require('style!css!sass!applicationStyles')
+require('style!css!sass!applicationStyles');
 
-ReactDOM.render(
-  <TodoApp/>,
+const store = configureStore();
+
+render(
+  <Provider store = {store}>
+    <TodoApp/>
+  </Provider>,
   document.getElementById('app')
 );
