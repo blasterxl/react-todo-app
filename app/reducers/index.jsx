@@ -1,39 +1,64 @@
 import { combineReducers } from 'redux';
+import uuid from 'node-uuid';
+import moment from 'moment';
 
 import {
-  CHANGE_NAME,
-  ADD_HOBBY,
-  REMOVE_HOBBY
+  SET_SEARCH_TEXT,
+  TOGGLE_SHOW_COMPLETED,
+  TOGGLE_TODO,
+  ADD_TODO
 } from '../constants';
 
-function nameReducer(state = 'Anonimus', action) {
+export const searchTextReducer = (state = '', action) => {
   switch (action.type) {
-    case CHANGE_NAME:
-      return action.name;
+    case SET_SEARCH_TEXT:
+      return action.searchText;
     default:
       return state;
   };
 };
 
-const nextHobbyId = 1;
-function hobbiesReducer(state = [], action) {
+export const showCompletedReducer = (state = false, action) => {
   switch (action.type) {
-    case ADD_HOBBY:
+    case TOGGLE_SHOW_COMPLETED:
+      return !state;
+    default:
+      return state;
+  };
+};
+
+export const todosReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD_TODO:
       return [
         ...state,
         {
-          id: nextHobbyId,
-          hobby: action.hobby
+          id: uuid(),
+          text: action.text,
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ];
-    case REMOVE_HOBBY:
-      return state.filter(hobby => hobby.id !== action.id);
+    case TOGGLE_TODO:
+      return state.map((todo) => {
+        if(todo.id == action.id) {
+          let nextCompleted = !todo.completed;
+
+          return {
+            ...todo,
+            completed: nextCompleted,
+            completedAt: nextCompleted ? moment().unix() : undefined
+          };
+        }
+      });
     default:
       return state;
   };
 };
 
 export default combineReducers({
-  name: nameReducer,
-  hobbies: hobbiesReducer
+  searchTextReducer,
+  showCompletedReducer,
+  todosReducer
 });
