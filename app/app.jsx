@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 
 import TodoApp from './components/TodoApp';
+import TodoAPI from './api/TodoAPI';
+import * as actions from './actions';
 import configureStore from './store/configureStore';
-
-import * as todoActions from './actions';
 
 // Load foundation
 $(document).foundation();
@@ -17,11 +17,14 @@ require('style!css!sass!applicationStyles');
 
 const store = configureStore();
 
-//-----------------------
+store.subscribe(() => {
+  let state = store.getState();
+  console.log('New state', state.todosReducer);
+  TodoAPI.setTodos(state.todosReducer);
+});
 
-store.dispatch(todoActions.addTodo('Clean the yard'));
-store.dispatch(todoActions.addTodo('Do something else'));
-store.dispatch(todoActions.setSearchText('clean'));
+let initialTodos = TodoAPI.getTodos();
+store.dispatch(actions.addTodos(initialTodos));
 
 render(
   <Provider store = {store}>

@@ -6,7 +6,8 @@ import {
   SET_SEARCH_TEXT,
   TOGGLE_SHOW_COMPLETED,
   TOGGLE_TODO,
-  ADD_TODO
+  ADD_TODO,
+  ADD_TODOS
 } from '../constants';
 
 export const searchTextReducer = (state = '', action) => {
@@ -54,6 +55,11 @@ export const todosReducer = (state = [], action) => {
           return todo;
         }
       });
+    case ADD_TODOS:
+      return [
+        ...state,
+        ...action.todos
+      ];
     default:
       return state;
   };

@@ -2,7 +2,8 @@ import {
   SET_SEARCH_TEXT,
   TOGGLE_SHOW_COMPLETED,
   TOGGLE_TODO,
-  ADD_TODO
+  ADD_TODO,
+  ADD_TODOS
 } from '../constants';
 
 export const setSearchText = (searchText) => {
@@ -29,5 +30,12 @@ export const addTodo = (text) => {
   return {
     type: ADD_TODO,
     text
+  };
+};
+
+export const addTodos = (todos) => {
+  return {
+    type: ADD_TODOS,
+    todos
   };
 };

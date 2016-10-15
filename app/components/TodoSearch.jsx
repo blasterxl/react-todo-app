@@ -5,7 +5,7 @@ import { setSearchText, toggleShowCompleted } from '../actions';
 
 export const TodoSearch = React.createClass({
   render: function () {
-    var {dispatch, showCompleted, searchText} = this.props;
+    const {dispatch, showCompleted, searchText} = this.props;
 
     return (
       <div className="container__header">
@@ -16,7 +16,7 @@ export const TodoSearch = React.createClass({
             placeholder="Search todos"
             value={searchText}
             onChange={() => {
-              var searchText = this.refs.searchText.value;
+              let searchText = this.refs.searchText.value;
               dispatch(setSearchText(searchText));
             }}/>
         </div>
