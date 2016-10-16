@@ -51,13 +51,6 @@ export const addTodo = (todo) => {
   };
 };
 
-export const addTodos = (todos) => {
-  return {
-    type: ADD_TODOS,
-    todos
-  };
-};
-
 export const startAddTodo = (text) => {
   return (dispatch, getState) => {
     let todo = {
@@ -73,6 +66,31 @@ export const startAddTodo = (text) => {
         ...todo,
         id: todoRef.key
       }));
+    });
+  };
+};
+
+export const addTodos = (todos) => {
+  return {
+    type: ADD_TODOS,
+    todos
+  };
+};
+
+export const startAddTodos = () => {
+  return (dispatch, getState) => {
+    let todoRef = firebaseRef.child('todos');
+
+    return todoRef.once('value').then((snapshot) => {
+      let todos = snapshot.val() || {};
+      let parsedTodos = [];
+      Object.keys(todos).map((todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+      dispatch(addTodos(parsedTodos));
     });
   };
 };

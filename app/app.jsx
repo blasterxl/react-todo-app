@@ -17,14 +17,7 @@ require('style!css!sass!applicationStyles');
 
 const store = configureStore();
 
-store.subscribe(() => {
-  let state = store.getState();
-  console.log('New state', state.todosReducer);
-  TodoAPI.setTodos(state.todosReducer);
-});
-
-let initialTodos = TodoAPI.getTodos();
-store.dispatch(actions.addTodos(initialTodos));
+store.dispatch(actions.startAddTodos());
 
 render(
   <Provider store = {store}>
