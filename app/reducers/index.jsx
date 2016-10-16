@@ -5,7 +5,7 @@ import moment from 'moment';
 import {
   SET_SEARCH_TEXT,
   TOGGLE_SHOW_COMPLETED,
-  TOGGLE_TODO,
+  UPDATE_TODO,
   ADD_TODO,
   ADD_TODOS
 } from '../constants';
@@ -35,15 +35,12 @@ export const todosReducer = (state = [], action) => {
         ...state,
         action.todo
       ];
-    case TOGGLE_TODO:
+    case UPDATE_TODO:
       return state.map((todo) => {
         if(todo.id == action.id) {
-          let nextCompleted = !todo.completed;
-
           return {
             ...todo,
-            completed: nextCompleted,
-            completedAt: nextCompleted ? moment().unix() : undefined
+            ...action.updates
           };
         } else {
           return todo;

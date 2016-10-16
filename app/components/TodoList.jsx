@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Todo from './Todo';
 import TodoAPI from '../api/TodoAPI';
 
-const TodoList = React.createClass({
+export const TodoList = React.createClass({
   render: function () {
     const { todos, showCompleted, searchText } = this.props;
 

@@ -5,7 +5,7 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var configureStore = require('configureStore');
+import { createStore } from 'redux'
 var TodoApp = require('TodoApp');
 import TodoList from 'TodoList';
 
@@ -14,5 +14,17 @@ describe('TodoApp', () => {
     expect(TodoApp).toExist();
   });
 
-  
+  it('should render TodoList', () => {
+    var store = createStore();
+    var provider = TestUtils.renderIntoDocument(
+      <Provider store={store}>
+        <TodoApp/>
+      </Provider>
+    );
+
+    var todoApp = TestUtils.scryRenderedComponentsWithType(provider, TodoApp)[0]
+    var todoList = TestUtils.scryRenderedComponentsWithType(todoApp, TodoList);
+
+    expect(todoList.length).toEqual(1);
+  });
 });

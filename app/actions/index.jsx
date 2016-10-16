@@ -4,7 +4,7 @@ import firebase, { firebaseRef } from './../api/firebaseAPI';
 import {
   SET_SEARCH_TEXT,
   TOGGLE_SHOW_COMPLETED,
-  TOGGLE_TODO,
+  UPDATE_TODO,
   ADD_TODO,
   ADD_TODOS
 } from '../constants';
@@ -22,10 +22,25 @@ export const toggleShowCompleted = () => {
   };
 };
 
-export const toggleTodo = (id) => {
+export const updateTodo = (id, updates) => {
   return {
-    type: TOGGLE_TODO,
-    id
+    type: UPDATE_TODO,
+    id,
+    updates
+  };
+};
+
+export const startToggleTodo = (id, completed) => {
+  return (dispatch, getState) => {
+    let todoRef = firebaseRef.child(`todos/${id}`);
+    let updates = {
+      completed,
+      completedAt: completed ? moment().unix() : null
+    };
+
+    return todoRef.update(updates).then(() => {
+      dispatch(updateTodo(id, updates));
+    });
   };
 };
 
