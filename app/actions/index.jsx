@@ -1,5 +1,5 @@
 import moment from 'moment';
-import firebase, { firebaseRef } from './../api/firebaseAPI';
+import firebase, { firebaseRef, githubProvider } from './../api/firebaseAPI';
 
 import {
   SET_SEARCH_TEXT,
@@ -91,6 +91,31 @@ export const startAddTodos = () => {
         });
       });
       dispatch(addTodos(parsedTodos));
+    });
+  };
+};
+
+export const startLogin = () => {
+  return (dispatch) => {
+    return firebase.auth().signInWithPopup(githubProvider)
+      .then((result) => {
+        let user = result.user;
+        console.log('Auth success');
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log('Auth error', error);
+      });
+  };
+};
+
+export const startLogout = () => {
+  return (dispatch) => {
+    return firebase.auth().signOut()
+    .then(() => {
+      console.log('Logout');
+    }, (error) => {
+      console.log(error);
     });
   };
 };
