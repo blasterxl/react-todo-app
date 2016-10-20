@@ -7,7 +7,9 @@ import {
   TOGGLE_SHOW_COMPLETED,
   UPDATE_TODO,
   ADD_TODO,
-  ADD_TODOS
+  ADD_TODOS,
+  LOGIN,
+  LOGOUT
 } from '../constants';
 
 export const searchTextReducer = (state = '', action) => {
@@ -56,8 +58,22 @@ export const todosReducer = (state = [], action) => {
   };
 };
 
+export const authReducer = (state = {}, action) => {
+  switch (action.type) {
+    case LOGIN:
+      return {
+        uid: action.uid
+      };
+    case LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   searchTextReducer,
   showCompletedReducer,
-  todosReducer
+  todosReducer,
+  authReducer
 });

@@ -6,7 +6,9 @@ import {
   TOGGLE_SHOW_COMPLETED,
   UPDATE_TODO,
   ADD_TODO,
-  ADD_TODOS
+  ADD_TODOS,
+  LOGIN,
+  LOGOUT
 } from '../constants';
 
 export const setSearchText = (searchText) => {
@@ -109,6 +111,13 @@ export const startLogin = () => {
   };
 };
 
+export const login = (uid) => {
+  return {
+    type: LOGIN,
+    uid
+  };
+};
+
 export const startLogout = () => {
   return (dispatch) => {
     return firebase.auth().signOut()
@@ -117,5 +126,11 @@ export const startLogout = () => {
     }, (error) => {
       console.log(error);
     });
+  };
+};
+
+export const logout = () => {
+  return {
+    type: LOGOUT
   };
 };
