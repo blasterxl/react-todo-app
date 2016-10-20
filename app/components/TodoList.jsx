@@ -32,9 +32,9 @@ export const TodoList = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    todos: state.todosReducer,
-    showCompleted: state.showCompletedReducer,
-    searchText: state.searchTextReducer
+    todos: state.todos,
+    showCompleted: state.showCompleted,
+    searchText: state.searchText
   };
 };
 

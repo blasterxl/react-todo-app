@@ -39,8 +39,8 @@ export const TodoSearch = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    showCompleted: state.showCompletedReducer,
-    searchText: state.searchTextReducer
+    showCompleted: state.showCompleted,
+    searchText: state.searchText
   };
 };
 

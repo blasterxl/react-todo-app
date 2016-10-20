@@ -17,13 +17,7 @@ module.exports = {
 
     // Sort todos with non-completed first
     filteredTodos.sort((a, b) => {
-      if (!a.completed && b.completed) {
-        return -1;
-      } else if (a.completed && !b.completed) {
-        return 1;
-      } else {
-        return 0;
-      }
+      a.completed - b.completed
     });
 
     return filteredTodos;

@@ -53,6 +53,8 @@ export const todosReducer = (state = [], action) => {
         ...state,
         ...action.todos
       ];
+    case LOGOUT:
+      return [];
     default:
       return state;
   };
@@ -65,15 +67,15 @@ export const authReducer = (state = {}, action) => {
         uid: action.uid
       };
     case LOGOUT:
-      return [];
+      return {};
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  searchTextReducer,
-  showCompletedReducer,
-  todosReducer,
-  authReducer
+  searchText: searchTextReducer,
+  showCompleted: showCompletedReducer,
+  todos: todosReducer,
+  auth: authReducer
 });
